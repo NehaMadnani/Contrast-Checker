@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Contrast Checker</title>
+    <style>
+        /* Your existing styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('bg-image-2.jpeg');
+            background-size: cover;
+            background-position: center center; /* Adjusted to ensure the top part is not cropped */
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-family: 'Roboto Mono';
+            color: #0d2a6e;
+        }
+        .container {
+            background: #00000096;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+       
+        .color-input {
+            display: flex;
+            align-items: center;
+            width: 30%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 10px;
+        }
+        .color-input input {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        button {
+            background-color: #179aff;
+            padding: 10px;
+            border: 1px solid #179aff;
+            border-radius: 5px;
+        }
+        #result {
+            padding: 15px;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: aliceblue;">Color Contrast Checker</h1>
+        <div class="color-input">
+            <label for="color1">Color 1:</label>
+            <input type="color" id="color1" value="#000000">
+        </div>
+
+        <div class="color-input">
+            <label for="color2">Color 2:</label>
+            <input type="color" id="color2" value="#ffffff">
+        </div>
+
+        <button onclick="checkContrast()">CHECK CONTRAST</button>
+
+        <div id="result">
+            Contrast Ratio:
+        </div>
+    </div>
+
+    <script>
+        function checkContrast() {
+            const color1 = getColorValue('color1', 'color1Hex');
+            const color2 = getColorValue('color2', 'color2Hex');
+
+            const contrastRatio = getContrastRatio(color1, color2);
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerText = `Contrast Ratio: ${contrastRatio.toFixed(2)}`;
+
+            if (contrastRatio >= 4.5) {
+                resultElement.style.color = '#4caf50'; // Green for sufficient contrast
+            } else {
+                resultElement.style.color = '#f44336'; // Red for insufficient contrast
+            }
+        }
+
+        function getColorValue(colorPickerId, hexInputId) {
+            const colorPicker = document.getElementById(colorPickerId);
+            const hexInput = document.getElementById(hexInputId);
+
+            return hexInput.value || colorPicker.value;
+        }
+
+
+        function checkContrast() {
+            const color1 = document.getElementById('color1').value;
+            const color2 = document.getElementById('color2').value;
+
+            const contrastRatio = getContrastRatio(color1, color2);
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerText = `Contrast Ratio: ${contrastRatio.toFixed(2)}`;
+
+            if (contrastRatio >= 4.5) {
+                resultElement.style.color = '#4caf50'; // Green for sufficient contrast
+            } else {
+                resultElement.style.color = '#f44336'; // Red for insufficient contrast
+            }
+        }
+
+        function getContrastRatio(color1, color2) {
+            const lum1 = getLuminance(color1);
+            const lum2 = getLuminance(color2);
+
+            const lighter = Math.max(lum1, lum2);
+            const darker = Math.min(lum1, lum2);
+
+            return (lighter + 0.05) / (darker + 0.05);
+        }
+
+        function getLuminance(color) {
+            const rgb = hexToRgb(color);
+            const srgb = rgb.map(val => val / 255);
+            const gammaCorrected = srgb.map(val => {
+                if (val <= 0.03928) {
+                    return val / 12.92;
+                } else {
+                    return Math.pow((val + 0.055) / 1.055, 2.4);
+                }
+            });
+
+            return 0.2126 * gammaCorrected[0] + 0.7152 * gammaCorrected[1] + 0.0722 * gammaCorrected[2];
+        }
+
+        function hexToRgb(hex) {
+            const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Contrast Examples</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .good-contrast {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+        .poor-contrast {
+            background-color: #3498db;
+            color: #3498db; /* Poor contrast, fails WCAG guidelines */
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Contrast Examples</h1>
+
+    <table>
+        <tr>
+            <th>Good Contrast (10:1 or higher)</th>
+            <th>Poor Contrast (Fails WCAG Guidelines)</th>
+        </tr>
+        <tr>
+            <td class="good-contrast" style="background: #f8f8f8; color: #2ecc71;">Foreground: #2ecc71<br>Background: #f8f8f8</td>
+            <td class="poor-contrast" style="background: #3498db; color: #fff;">Foreground: #fff<br>Background: #3498db</td>
+        </tr>
+        <tr>
+            <td class="good-contrast" style="background: #2ecc71; color: #fff;">Foreground: #fff<br>Background: #2ecc71</td>
+            <td class="poor-contrast" style="background: #3498db; color: #fff;">Foreground: #fff<br>Background: #3498db</td>
+        </tr>
+        <tr>
+            <td class="good-contrast" style="background: #fff; color: #333;">Foreground: #333<br>Background: #fff</td>
+            <td class="poor-contrast" style="background: #3498db; color: #fff;">Foreground: #fff<br>Background: #3498db</td>
+        </tr>
+        <tr>
+            <td class="good-contrast" style="background: #fff; color: #333;">Foreground: #333<br>Background: #fff</td>
+            <td class="poor-contrast" style="background: #3498db; color: #fff;">Foreground: #fff<br>Background: #3498db</td>
+        </tr>
+        <tr>
+            <td class="good-contrast" style="background: #fff; color: #333;">Foreground: #333<br>Background: #fff</td>
+            <td class="poor-contrast" style="background: #3498db; color: #fff;">Foreground: #fff<br>Background: #3498db</td>
+        </tr>
+        <tr>
+            <td class="good-contrast" style="background: #fff; color: #333;">Foreground: #333<br>Background: #fff</td>
+            <td class="poor-contrast" style="background: #3498db; color: #fff;">Foreground: #fff<br>Background: #3498db</td>
+        </tr>
+    </table>
+</body>
+</html>
